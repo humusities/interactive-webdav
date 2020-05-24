@@ -1,0 +1,20 @@
+{
+  "name": "@humusities/interactive-webdav",
+  "version": "0.0.2",
+  "description": "Interactive Webdav Explorer HTTP Server",
+  "main": "server/index.js",
+  "type": "module",
+  "repository": "git@github.com:humusities/interactive-webdav.git",
+  "author": "Elias Rhouzlane",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@eliaspourquoi/heritage": "^0.1.9",
+    "esdev": "^0.1.1"
+  },
+  "webDependencies": {
+    "es-module-shims": "0.4.6"
+  }
+}
