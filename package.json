@@ -1,6 +1,6 @@
 {
   "name": "@humusities/interactive-webdav",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Interactive Webdav Explorer HTTP Server",
   "main": "server/index.js",
   "type": "module",
