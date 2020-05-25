@@ -8,10 +8,11 @@ export default ({
   port = 0,
   inject = "",
   statics = true,
+  preHook = () => null,
 } = {}) =>
   http
     .createServer((req, res) => {
-      console.log(`${req.method} ${req.url}`);
+      preHook(req, res);
 
       const root = rawt.startsWith("/") ? rawt : path.join(process.cwd(), rawt);
       const pathname = url.parse(req.url).pathname.substr(1);
@@ -39,7 +40,8 @@ export default ({
         }
 
         const fallback = "index.html";
-        const file = fs.statSync(uri).isDirectory()
+        const needFallback = fs.statSync(uri).isDirectory();
+        const file = needFallback
           ? statics
             ? path.join(uri, fallback)
             : path.join(root, fallback)
@@ -52,7 +54,7 @@ export default ({
             const ext = path.parse(file).ext;
             res.setHeader("access-control-allow-origin", "*");
             res.setHeader("Content-type", map[ext] || "text/plain");
-            res.end(inject ? data + inject : data);
+            res.end(needFallback && inject ? data + inject : data);
           }
         });
       });
