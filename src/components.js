@@ -12,7 +12,7 @@ export const PreviewHTML = url =>
     <iframe src="${url}"></iframe>
   `;
 
-export const Preview = files =>
+export const Preview = (webdavURL, files) =>
   html`
     <div class="container files-${files.length}">
       ${files
@@ -20,7 +20,7 @@ export const Preview = files =>
           if (file.getcontenttype.includes("image/")) {
             return html`
               <div tabindex="0" class="image-container">
-                <img src="${file.href}" />
+                <img src="${path.join(webdavURL, file.href)}" />
               </div>
             `;
           } else if (
@@ -29,7 +29,7 @@ export const Preview = files =>
           ) {
             return html`
               <div tabindex="0" class="text-container">
-                <render-markdown src="${file.href}"></render-markdown>
+                <render-markdown src="${path.join(webdavURL, file.href)}"></render-markdown>
               </div>
             `;
           }
@@ -54,7 +54,7 @@ export const Folders = folders =>
       folder =>
         html`
           <li>
-            📁
+           &#128193;
             <span class="link" onclick="browseRender('${folder.href}')"
               >${folder.displayname}</span
             >
@@ -63,15 +63,15 @@ export const Folders = folders =>
     )
     .join("");
 
-export const Files = files =>
+export const Files = (webdavURL, files) =>
   files
     .filter(file => !file.displayname.startsWith("."))
     .map(
       file =>
         html`
           <li>
-            📄
-            <a href="${path.join("/", file.href)}" target="_blank"
+           &#128196;
+            <a href="${path.join(webdavURL, file.href)}" target="_blank"
               >${file.displayname}</a
             >
           </li>
